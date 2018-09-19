@@ -1,0 +1,1 @@
+const shoeApp = angular.module('ShoeApp', ['ngRoute']);
