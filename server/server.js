@@ -38,12 +38,12 @@ pool.on('error', (error) => {
 app.get('/shoes', (req, res) => {
   pool.query('SELECT * FROM "shoes";')
     .then((results) => {
-      console.log('Back from db with:', results.rows);
+      console.log('Back from GET with:', results.rows);
       res.send(results.rows);
     })
     .catch((error) => {
       console.log('Error with SQL select for shoes:', error);
-      res.send(500);
+      res.sendStatus(500);
     });
 });
 
@@ -51,14 +51,27 @@ app.post('/shoes', (req, res) => {
   pool.query(`INSERT INTO "shoes" ("name", "cost") 
               VALUES ($1, $2);`, [req.body.name, req.body.cost])
     .then(() => {
-      console.log('Back from /shoes');
+      console.log('Back from POST');
       res.sendStatus(201);
     })
     .catch((error) => {
       console.log("error posting", error);
-      res.send(500);
+      res.sendStatus(500);
     })
-})
+});
+
+app.delete('/shoes', (req, res) => {
+  console.log("req.query:", req.query);
+  pool.query(`DELETE FROM "shoes"
+               WHERE "id"=$1;`, [req.query.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('Error deleting shoes:', error);
+      res.sendStatus(500);
+    })
+});
 
 /*------------ spin up server -------------------*/
 

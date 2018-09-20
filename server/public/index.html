@@ -27,7 +27,7 @@
       <tr ng-repeat="shoe in vm.shoeList">
         <td>{{shoe.name}}</td>
         <td>{{shoe.cost}}</td>
-        <td><button>Delete</button></td>
+        <td><button ng-click="vm.deleteShoes(shoe)">Delete</button></td>
       </tr>
     </tbody>
   </table>

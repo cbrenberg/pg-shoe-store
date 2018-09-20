@@ -16,10 +16,10 @@ shoeApp.controller('ShoeController', ['$http', function($http) {
         "name": vm.shoeType,
         "cost": vm.price
       }
-    }).then((response) => {
+    }).then(function (response) {
       console.log('Back from /POST:', response);
       vm.getShoes();
-    }).catch((error) => {
+    }).catch(function (error) {
       console.log('Error adding shoes:', error);
     })
   };
@@ -29,12 +29,26 @@ shoeApp.controller('ShoeController', ['$http', function($http) {
     $http({
       method: 'GET',
       url: '/shoes'
-    }).then((response) => {
+    }).then(function (response) {
       console.log('Back from GET with:', response);
       vm.shoeList = response.data;
-    }).catch((error) => {
+    }).catch(function (error) {
       console.log('Error getting shoes:', error);
     })
+  }
+
+  vm.deleteShoes = function (shoeObject) {
+    console.log('in deleteShoes', shoeObject);
+    $http({
+      method: 'DELETE',
+      url: '/shoes',
+      params: shoeObject
+    }).then(function (response) {
+      console.log('Back from delete', response);
+      vm.getShoes();
+    }).catch(function (error) {
+      console.log('Error deleting shoes:', error);
+    });
   }
   //get shoe list on page load
   vm.getShoes();
