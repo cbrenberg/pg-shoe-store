@@ -49,7 +49,7 @@ app.get('/shoes', (req, res) => {
 
 app.post('/shoes', (req, res) => {
   pool.query(`INSERT INTO "shoes" ("name", "cost") 
-              VALUES ('${req.body.name}', '${req.body.cost}');`)
+              VALUES ($1, $2);`, [req.body.name, req.body.cost])
     .then(() => {
       console.log('Back from /shoes');
       res.sendStatus(201);

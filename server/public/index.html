@@ -5,12 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Shoe Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
   <script src="vendors/angular.min.js"></script>
   <script src="scripts/client.js"></script>
 </head>
-<body>
+<body ng-app="ShoeApp" ng-controller="ShoeController as vm">
   <h1>Shoe Store</h1>
+  {{vm}}
+  <form action="submit">
+    <input type="text" placeholder="Type of shoes">
+    <input type="text" placeholder="Price">
+    <input type="button" value="Submit">
+  </form>
   <ng-view></ng-view>
 </body>
 </html>
