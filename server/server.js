@@ -36,7 +36,8 @@ pool.on('error', (error) => {
 /*------------ AJAX stuff -------------------*/
 
 app.get('/shoes', (req, res) => {
-  pool.query('SELECT * FROM "shoes";')
+  console.log('GET req.query:', req.query);
+  pool.query(`SELECT * FROM "shoes"`)
     .then((results) => {
       console.log('Back from GET with:', results.rows);
       res.send(results.rows);

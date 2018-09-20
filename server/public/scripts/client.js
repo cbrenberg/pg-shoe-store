@@ -28,7 +28,8 @@ shoeApp.controller('ShoeController', ['$http', function($http) {
     console.log('in getShoes');
     $http({
       method: 'GET',
-      url: '/shoes'
+      url: '/shoes',
+      params: {sort: vm.order}
     }).then(function (response) {
       console.log('Back from GET with:', response);
       vm.shoeList = response.data;
