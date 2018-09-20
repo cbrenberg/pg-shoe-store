@@ -12,10 +12,25 @@
   <h1>Shoe Store</h1>
   {{vm}}
   <form action="submit">
-    <input type="text" placeholder="Type of shoes">
-    <input type="text" placeholder="Price">
-    <input type="button" value="Submit">
+    <input type="text" placeholder="Type of shoes" ng-model="vm.shoeType">
+    <input type="number" placeholder="Price" ng-model="vm.price">
+    <input type="button" value="Submit" ng-click="vm.addNewShoe()">
   </form>
-  <ng-view></ng-view>
+  <br>
+  <br>
+  <table>
+    <thead>
+      <th>Type of Shoes</th>
+      <th>Price</th>
+      <th>Delete</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{vm.shoeType}}</td>
+        <td>{{vm.price}}</td>
+        <td><button>Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>
