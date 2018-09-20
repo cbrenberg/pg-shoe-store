@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Shoe Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="vendors/bootstrap.min.css">
   <script src="vendors/angular.min.js"></script>
   <script src="scripts/client.js"></script>
 </head>
+
 <body ng-app="ShoeApp" ng-controller="ShoeController as vm">
   <h1>Shoe Store</h1>
-  <form action="submit">
-    <input type="text" placeholder="Type of shoes" ng-model="vm.shoeType">
-    <input type="number" placeholder="Price" ng-model="vm.price">
-    <input type="button" value="Submit" ng-click="vm.addNewShoe()">
-  </form>
   <br>
-  <br>
-  <table>
-    <thead>
-      <th>Type of Shoes</th>
-      <th>Price</th>
-      <th>Delete</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="shoe in vm.shoeList">
-        <td>{{shoe.name}}</td>
-        <td>{{shoe.cost}}</td>
-        <td><button ng-click="vm.deleteShoes(shoe)">Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="container">
+    <form action="submit">
+      <input type="text" placeholder="Type of shoes" ng-model="vm.shoeType">
+      <input type="number" placeholder="Price" ng-model="vm.price">
+      <input type="button" value="Submit" ng-click="vm.addNewShoe()">
+    </form>
+    <br>
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <th>Type of Shoes</th>
+        <th>Price</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="shoe in vm.shoeList">
+          <td>{{shoe.name}}</td>
+          <td>{{shoe.cost}}</td>
+          <td><button ng-click="vm.deleteShoes(shoe)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
+
 </html>
