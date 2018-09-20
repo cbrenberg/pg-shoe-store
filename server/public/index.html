@@ -10,7 +10,6 @@
 </head>
 <body ng-app="ShoeApp" ng-controller="ShoeController as vm">
   <h1>Shoe Store</h1>
-  {{vm}}
   <form action="submit">
     <input type="text" placeholder="Type of shoes" ng-model="vm.shoeType">
     <input type="number" placeholder="Price" ng-model="vm.price">
@@ -25,9 +24,9 @@
       <th>Delete</th>
     </thead>
     <tbody>
-      <tr>
-        <td>{{vm.shoeType}}</td>
-        <td>{{vm.price}}</td>
+      <tr ng-repeat="shoe in vm.shoeList">
+        <td>{{shoe.name}}</td>
+        <td>{{shoe.cost}}</td>
         <td><button>Delete</button></td>
       </tr>
     </tbody>
