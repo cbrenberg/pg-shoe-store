@@ -1,7 +1,6 @@
 const express = require('express');
-const pg = require('pg');
 const bodyParser = require('body-parser');
-
+const shoeRouter = require('./routes/shoes.router')
 
 //globals
 const app = express();
@@ -11,68 +10,7 @@ const PORT = process.env.port || 5000;
 app.use(express.static('server/public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
-
-/*----------- set up postgresql ------------*/
-
-const Pool = pg.Pool;
-
-const pool = new Pool({
-  database: 'shoe_store', //name of database
-  host: 'localhost', //location
-  port: '5432', //port to access database (5432 is postgres default)
-  max: 10, //concurrent query limit (heroku free maximum is 10)
-  idleTimeoutMillis: 30000 //30 seconds before giving up
-});
-
-pool.on('connect', () => {
-  console.log('Postgresql connected');
-});
-
-pool.on('error', (error) => {
-  console.log('Error with postgresql pool', error);
-});
-
-/*------------ AJAX stuff -------------------*/
-
-app.get('/shoes', (req, res) => {
-  console.log('GET req.query:', req.query);
-  pool.query(`SELECT * FROM "shoes"`)
-    .then((results) => {
-      console.log('Back from GET with:', results.rows);
-      res.send(results.rows);
-    })
-    .catch((error) => {
-      console.log('Error with SQL select for shoes:', error);
-      res.sendStatus(500);
-    });
-});
-
-app.post('/shoes', (req, res) => {
-  pool.query(`INSERT INTO "shoes" ("name", "cost") 
-              VALUES ($1, $2);`, [req.body.name, req.body.cost])
-    .then(() => {
-      console.log('Back from POST');
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.log("error posting", error);
-      res.sendStatus(500);
-    })
-});
-
-app.delete('/shoes', (req, res) => {
-  console.log("req.query:", req.query);
-  pool.query(`DELETE FROM "shoes"
-               WHERE "id"=$1;`, [req.query.id])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log('Error deleting shoes:', error);
-      res.sendStatus(500);
-    })
-});
+app.use('/shoes', shoeRouter);
 
 /*------------ spin up server -------------------*/
 
